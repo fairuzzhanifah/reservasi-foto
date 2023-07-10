@@ -1,23 +1,10 @@
 <?php
-session_start();
-if (isset($_POST['username']) && isset($_POST['password'])){
-    $user = $_POST['username'];
-    $password = $_POST['password'];
-    $_SESSION['user'] = $user;
-
-    if ($user == 'admin' && $password == 'admin123') {
-        $_SESSION['user_is_logged_in'] = true;
-        header('Location: dashboard.php');
-        exit;
-    }else {
-       $errorMessage = "Maaf, username atau password tidak sesuai!!!" ;
-       echo "<script>
-               alert('$errorMessage');
-               window.location = 'login_admin.php';
-             </script>";
-    }
-}
 include "../koneksi.php";
+session_start();
+if(isset($_SESSION["login_admin"])){
+    header("Location: dashboard.php");
+	exit;
+}
 ?>
 
 
@@ -68,16 +55,16 @@ include "../koneksi.php";
                     </div>
                     <div class="col-md-6 px-182 my-auto">
                         <h3 class="mb-5 display-6 fw-600 font-sora">Login Admin</h3>
-                        <form action="" method="post">
+                        <form action="../tes.php" method="post">
     <div class="form-group">
         <label for="user">Username</label>
-        <input type="username" class="form-control border-radius-none h-40 btn-border-2px fs-14px" name="username" aria-describedby="emailHelp" placeholder="Username" />
+        <input type="username" class="form-control border-radius-none h-40 btn-border-2px fs-14px" name="username_admin" aria-describedby="emailHelp" placeholder="Username" />
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control border-radius-none h-40 btn-border-2px fs-14px" id="exampleInputPassword1" name="password" placeholder="Password" />
+        <input type="password" class="form-control border-radius-none h-40 btn-border-2px fs-14px" id="exampleInputPassword1" name="password_admin" placeholder="Password" />
     </div>
-    <button type="submit" class="btn btn-primary btn-block border-radius-none border-none h-48 mt-5" name="login" style="background-color: #c37b52">
+    <button type="submit" class="btn btn-primary btn-block border-radius-none border-none h-48 mt-5" name="login_admin" style="background-color: #c37b52">
         Login
     </button>
 </form>               

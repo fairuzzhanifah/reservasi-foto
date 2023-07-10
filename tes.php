@@ -8,6 +8,7 @@ if (isset($_POST['register'])) {
     $number = $_POST['number'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
+    $jam_booking = $_POST['jam_booking'];
 
     // Cek konfirmasi password
     if ($password != $confirmPassword) {
@@ -72,6 +73,35 @@ if (isset($_POST['login'])) {
     }
 }
 
+if (isset($_POST['login_admin'])) {
+    $username_admin = $_POST['username_admin'];
+    $password_admin = $_POST['password_admin'];
+
+    // Menjalankan pernyataan SQL untuk memeriksa kecocokan username dan password
+    $query = "SELECT * FROM admin WHERE username_admin = '$username_admin' AND password_admin = '$password_admin'";
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) == 1) {
+        // Login berhasil
+        // Mendapatkan data pengguna dari hasil quer
+        $row = mysqli_fetch_assoc($result);
+        
+        // Menyimpan nilai-nilai pengguna ke dalam session
+        $_SESSION["login_admin"] = true;
+        $_SESSION["id_admin"] = $row['id_admin'];
+        $_SESSION["username_admin"] = $row['username_admin'];
+        $_SESSION["password_admin"] = $row['password_admin'];
+    
+        // Mengarahkan pengguna ke halaman selanjutnya
+        header("Location: admin/dashboard.php");
+    } else {
+        // Login gagal
+        // Tampilkan pesan kesalahan atau arahkan pengguna kembali ke halaman login
+        header("Location: login_admin.php");
+    }
+}
+
+
 $enumPaket = ['1' => 'WEEKDAYS', '2' => 'WEEKEND', '3' => 'PROMO'];
 $enumBackground = ['1' => 'BLUE', '2' => 'BROWN', '3' => 'WHITE'];
 
@@ -94,6 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['konfirm'])) {
     $instagram = $_POST['instagram'];
     $numOfPeople = $_POST['numOfPeople'];
     $tanggal_booking = $_POST['tanggal_booking'];
+    $jam_booking = $_POST['jam_booking'];
     $background = $enumBackground[$_POST['background']];
     $paket = $enumPaket[$_POST['paket']];
     // Lakukan validasi data jika diperlukan
@@ -108,8 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['konfirm'])) {
     $user_id = $_SESSION['id_pelanggan'];
 
     // Membuat query untuk menyimpan data
-    $sql = "INSERT INTO konfirmasi (name, email, phone, instagram, numOfPeople, tanggal_booking, background, paket, status, user_id)
-            VALUES ('$name', '$email', '$phone', '$instagram', '$numOfPeople', '$tanggal_booking', '$background', '$paket', 'UPCOMING', '$user_id')";
+    $sql = "INSERT INTO konfirmasi (name, email, phone, instagram, numOfPeople, tanggal_booking, jam_booking, background, paket, status, user_id)
+            VALUES ('$name', '$email', '$phone', '$instagram', '$numOfPeople', '$tanggal_booking', '$jam_booking', '$background', '$paket', 'UPCOMING', '$user_id')";
 
     if ($conn->query($sql) === TRUE) {
         // $_SESSION['paket'] = $paket;

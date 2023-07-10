@@ -1,10 +1,5 @@
 <?php
 include "../koneksi.php";
-session_start();
-if(!isset($_SESSION["login_admin"])){
-    header("Location: login_admin.php");
-	exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -49,11 +44,13 @@ if(!isset($_SESSION["login_admin"])){
             <ul>
                 <li><a class="#" href="dashboard.php">Dashboard</a></li>
                 <li><a class="#" href="tabel_pesanan.php">Tabel Pesanan</a></li>
-                <li><a class="#" href="tabel_payment.php">Tabel Pembayaran</a></li>
-                <li><a class="#" href="#">Tabel Pelanggan</a></li>
-                <li><a class="#" href="tabel_feedback.php">Tabel Feedback</a></li>
+                <li><a class="#" href="tabel_payment.php">Tabel Payment</a></li>
+                <li><a class="#" href="tabel_pelanggan.php">Tabel Pelanggan</a></li>
+                <li><a class="#" href="#">Tabel Feedback</a></li>
                 
-                <li><a class="#" href="logout_admin.php">Logout</a></li>
+                <?php if (!isset($_SESSION['user_is_logged_in']) || $_SESSION['user_is_logged_in'] !== true) { ?>
+                    <li><a class="#" href="login_admin.php">Logout</a></li>
+                <?php } ?>
             </ul>
         </div>
         <div class="content">
@@ -67,10 +64,10 @@ if(!isset($_SESSION["login_admin"])){
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-md-12">
-                            <h4 class="page-title mb-4 mt-4" style="">Daftar pengguna Chis With Us</h4>
+                            <h4 class="page-title mb-4 mt-4" style="">Daftar Feedback Pelanggan</h4>
                             <ol class="breadcrumb m-10 mb-5">
                                 <li class="breadcrumb-item"><a href="dashboard.php" style= "color:brown">Admin</a></li>
-                                <li class="breadcrumb-item active">Tabel Pengguna</li>
+                                <li class="breadcrumb-item active">Tabel Feedback</li>
                             </ol>
                         </div>
                     </div>
@@ -80,31 +77,37 @@ if(!isset($_SESSION["login_admin"])){
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>id_pelanggan</th>
-                        <th>username</th>
-                        <th>email</th>
-                        <th>nomor hp</th>
-
+                        <th>kd_review</th>
+                        <th>usernama</th>
+                        <th>rating</th>
+                        <th>review</th>
+                        <th>aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
-                    if(isset($_GET['pelanggan'])){
-                        $konfirm = $_GET['pelanggan'];
-                        $sql = "SELECT * FROM pelanggan WHERE id_pelanggan LIKE '%".$pelanggan."%'";
+                    if(isset($_GET['add_review'])){
+                        $review = $_GET['add_review'];
+                        $sql = "SELECT * FROM review WHERE kd_review LIKE '%".$review."%'";
                         $query = mysqli_query($conn,$sql);
                     } else {
-                        $sql = "SELECT * FROM pelanggan";
+                        $sql = "SELECT * FROM review";
                         $query = mysqli_query($conn, $sql);
                     }
                     while($data=mysqli_fetch_array($query)){
                         ?>
                         <tr>
-                            <td><?php echo $data['id_pelanggan']; ?></td>
-                            <td><?php echo $data['username']; ?></td>
-                            <td><?php echo $data['email']; ?></td>
-                            <td><?php echo $data['number']; ?></td>
-                            
+                            <td><?php echo $data['kd_review']; ?></td>
+                            <td><?php echo $data['user_name']; ?></td>
+                            <td><?php echo $data['user_rating']; ?></td>
+                            <td><?php echo $data['user_review']; ?></td>
+                           
+                            <td>
+                                <form action="#" method="post">
+                                    <a href="hapus_feedback.php?kd_review=<?php echo $data['kd_review']; ?>" data-tip="delete"> <img src="../assets/trash-solid.svg" alt="" width= 16px; >Hapus</a>
+                                </form>
+
+                            </td>
                         </tr>
                         <?php
                     }
@@ -124,7 +127,7 @@ if(!isset($_SESSION["login_admin"])){
             $('#example').DataTable();
         });
     </script>
-    <script>
+    <!-- <script>
     function getValue(select, id_confirm) {
         // Mengambil nilai yang dipilih
         var selectedOption = select.value;
@@ -144,7 +147,6 @@ if(!isset($_SESSION["login_admin"])){
             }
         });
     }
-</script>
-
+</script> -->
 </body>
 </html>

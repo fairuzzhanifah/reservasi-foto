@@ -22,10 +22,11 @@ try {
               </script>";
     exit();
   }
-} catch (error) {
+} catch (Exception $error) {
   echo "<script>
-      alert('$error');
+      alert('" . $error->getMessage() . "');
       window.location = 'activity.php';
     </script>";
   exit();
 }
+

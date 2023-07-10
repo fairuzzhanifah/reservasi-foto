@@ -1,5 +1,10 @@
 <?php
 include "../koneksi.php";
+session_start();
+if(!isset($_SESSION["login_admin"])){
+    header("Location: login_admin.php");
+	exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,10 +51,10 @@ include "../koneksi.php";
                 <li><a class="#" href="tabel_pesanan.php">Tabel Pesanan</a></li>
                 <li><a class="#" href="#">Tabel Pembayaran</a></li>
                 <li><a class="#" href="tabel_pelanggan.php">Tabel Pelanggan</a></li>
+                <li><a class="#" href="tabel_feedback.php">Tabel Feedback</a></li>
                 
-                <?php if (!isset($_SESSION['user_is_logged_in']) || $_SESSION['user_is_logged_in'] !== true) { ?>
-                    <li><a class="#" href="login_admin.php">Logout</a></li>
-                <?php } ?>
+                    <li><a class="#" href="logout_admin.php">Logout</a></li>
+                
             </ul>
         </div>
         <div class="content">
@@ -98,7 +103,7 @@ include "../koneksi.php";
                         ?>
                         <tr>
                             <td><?php echo $data['id_payment']; ?></td>
-                            <td><a href="upload/<?php echo $data['nama_file']; ?>"><?php echo $data['nama_file']; ?></a></td>
+                            <td><a href="../upload/<?php echo $data['nama_file']; ?>"><?php echo $data['nama_file']; ?></a></td>
                             <td><?php echo $data['ukuran_file']; ?></td>
                             <td><?php echo $data['tanggal_upload']; ?></td>
                             <td id="status-<?php echo $data['id_payment']; ?>"><?php echo $data['status']; ?></td>

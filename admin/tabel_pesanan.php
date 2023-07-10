@@ -1,5 +1,10 @@
 <?php
 include "../koneksi.php";
+session_start();
+if(!isset($_SESSION["login_admin"])){
+    header("Location: login_admin.php");
+	exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,10 +51,9 @@ include "../koneksi.php";
                 <li><a class="#" href="#">Tabel Pesanan</a></li>
                 <li><a class="#" href="tabel_payment.php">Tabel Pembayaran</a></li>
                 <li><a class="#" href="tabel_pelanggan.php">Tabel Pelanggan</a></li>
+                <li><a class="#" href="tabel_feedback.php">Tabel Feedback</a></li>
                 
-                <?php if (!isset($_SESSION['user_is_logged_in']) || $_SESSION['user_is_logged_in'] !== true) { ?>
-                    <li><a class="#" href="login_admin.php">Logout</a></li>
-                <?php } ?>
+                <li><a class="#" href="logout_admin.php">Logout</a></li>
             </ul>
         </div>
         <div class="content">
@@ -83,6 +87,7 @@ include "../koneksi.php";
                         <th>instagram</th>
                         <th>num of people</th>
                         <th>date</th>
+                        <th>time</th>
                         <th>background</th>
                         <th>paket</th>
                         <th>aksi</th>
@@ -108,6 +113,7 @@ include "../koneksi.php";
                             <td><?php echo $data['instagram']; ?></td>
                             <td><?php echo $data['numOfPeople']; ?></td>
                             <td><?php echo $data['tanggal_booking']; ?></td>
+                            <td><?php echo $data['jam_booking']; ?></td>
                             <td><?php echo $data['background']; ?></td>
                             <td><?php echo $data['paket']; ?></td>
                             <td>

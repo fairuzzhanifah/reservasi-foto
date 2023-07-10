@@ -16,6 +16,7 @@ if (isset($_SESSION['id_confirm'])) {
             $paket = $row['paket'];
             $background = $row['background'];
             $tanggal_booking = $row['tanggal_booking'];
+            $jam_booking = $row['jam_booking'];
         }
     } else {
         echo "Error: " . mysqli_error($conn);
@@ -161,7 +162,8 @@ $total = $subtotal + 1000;
 
                                 <div class="d-flex justify-content-between">
                                     <p>Time</p>
-                                    <p id="selectedTime"></p>
+                                    <p><?php echo $jam_booking; ?></p>
+
                                 </div>
                             </div>
                         </div>

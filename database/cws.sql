@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2023 at 04:59 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Waktu pembuatan: 25 Jun 2023 pada 04.06
+-- Versi server: 10.4.25-MariaDB
+-- Versi PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `konfirmasi`
+-- Struktur dari tabel `admin`
+--
+
+CREATE TABLE `admin` (
+  `id_admin` int(11) NOT NULL,
+  `username_admin` varchar(30) NOT NULL,
+  `password_admin` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `admin`
+--
+
+INSERT INTO `admin` (`id_admin`, `username_admin`, `password_admin`) VALUES
+(1, 'admin', 'admin123');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `konfirmasi`
 --
 
 CREATE TABLE `konfirmasi` (
@@ -34,104 +53,161 @@ CREATE TABLE `konfirmasi` (
   `phone` varchar(15) NOT NULL,
   `instagram` varchar(50) NOT NULL,
   `numOfPeople` int(11) NOT NULL,
-  `background` enum('Blue','Brown','White') NOT NULL,
-  `paket` enum('Weekdays','Weekend','Promo') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `tanggal_booking` text NOT NULL,
+  `jam_booking` varchar(30) NOT NULL,
+  `background` enum('BLUE','BROWN','WHITE') NOT NULL,
+  `paket` enum('WEEKDAYS','WEEKEND','PROMO') NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `konfirmasi`
+-- Dumping data untuk tabel `konfirmasi`
 --
 
-INSERT INTO `konfirmasi` (`id_confirm`, `name`, `email`, `phone`, `instagram`, `numOfPeople`, `background`, `paket`) VALUES
-(1, 'afiqah fatina zahra', 'afiqah23@gmail.com', '082834798213', 'fiqa23__', 2, 'Brown', 'Weekdays'),
-(2, 'nabila ummul husna', 'nabila24@gmail.com', '081991916331', 'beee24__', 2, 'Blue', 'Weekdays'),
-(3, 'nazmi wardiani', 'nazmi@gmail.com', '081234567890', 'nazmiwardiani', 2, 'Brown', 'Weekend'),
-(4, 'fairuz hanifah', 'fairuzhnf@gmail.com', '081987654321', 'fairuzzhanifah', 1, 'White', 'Promo'),
-(9, '', '', '', '', 0, '', ''),
-(10, '', '', '', '', 0, '', ''),
-(11, '', '', '', '', 0, '', ''),
-(12, '', '', '', '', 0, '', ''),
-(13, '', '', '', '', 0, '', ''),
-(14, '', '', '', '', 0, '', ''),
-(15, '', '', '', '', 0, '', ''),
-(16, '', '', '', '', 0, '', ''),
-(17, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Blue', 'Weekdays'),
-(18, '', '', '', '', 0, '', ''),
-(19, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Blue', 'Weekdays'),
-(20, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Blue', 'Weekdays'),
-(21, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Brown', 'Weekdays'),
-(22, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Brown', 'Weekdays'),
-(23, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'White', 'Promo'),
-(24, 'nazmi wardiani', 'nabila@gmail.com', '081991916331', 'nazmiwardiani', 2, 'Brown', 'Weekend'),
-(25, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'nazmiwardiani', 1, 'Blue', 'Weekdays'),
-(26, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Blue', 'Weekend'),
-(27, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Blue', 'Weekend'),
-(28, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 2, 'Blue', 'Weekend'),
-(29, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 3, 'Blue', 'Weekend'),
-(30, 'nabila ummul husna', 'afiqachu23@gmail.com', '081991916331', 'beee24__', 5, 'Blue', 'Promo'),
-(31, '', '', '', '', 0, '', ''),
-(32, 'fairuz hanifah', 'billa2405@gmail.com', '081987654321', 'fairuzzhanifah', 5, 'Brown', 'Weekdays'),
-(33, '', '', '', '', 0, '', '');
+INSERT INTO `konfirmasi` (`id_confirm`, `name`, `email`, `phone`, `instagram`, `numOfPeople`, `tanggal_booking`, `jam_booking`, `background`, `paket`, `status`, `user_id`) VALUES
+(5, 'fairuz', 'fairuzhanifah@gmail.com', '082339147307', 'fairuzzhanifah', 2, '2023-06-24', '11:00 PM', 'BLUE', 'WEEKDAYS', 'COMPLETED', 3),
+(6, 'fairuz', 'fairuzhanifah@gmail.com', '082339147307', 'fairuzzhanifah', 2, '2023-06-25', '11:30 PM', 'BLUE', 'WEEKDAYS', 'COMPLETED', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pelanggan`
+-- Struktur dari tabel `payment`
+--
+
+CREATE TABLE `payment` (
+  `id_payment` int(11) NOT NULL,
+  `nama_file` varchar(255) NOT NULL,
+  `tipe_file` varchar(255) NOT NULL,
+  `ukuran_file` int(11) NOT NULL,
+  `tanggal_upload` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `payment`
+--
+
+INSERT INTO `payment` (`id_payment`, `nama_file`, `tipe_file`, `ukuran_file`, `tanggal_upload`, `status`) VALUES
+(1, '20016, 21059, 21069_Kelompok B.png', 'image/png', 983909, '2023-06-15 08:07:09', ''),
+(2, '5917-removebg-preview.png', 'image/png', 73693, '2023-06-15 09:29:55', ''),
+(3, 'Screenshot 2023-05-31 215902.png', 'image/png', 877742, '2023-06-15 09:31:49', ''),
+(4, 'ACTIVITY 3.jpg', 'image/jpeg', 176903, '2023-06-15 09:39:04', ''),
+(5, 'pertemuan19 (1).png', 'image/png', 102747, '2023-06-24 07:45:58', ''),
+(6, 'Pertemuan19 (2).png', 'image/png', 495346, '2023-06-24 11:28:21', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pelanggan`
 --
 
 CREATE TABLE `pelanggan` (
   `id_pelanggan` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `number` varchar(15) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pelanggan`
+-- Dumping data untuk tabel `pelanggan`
 --
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `username`, `email`, `number`, `password`) VALUES
-(1, 'fairuz', 'fairuzhanifah@gmail.com', '081234567890', '123'),
-(2, 'nabila', 'nabila24@gmail.com', '081991916331', 'lala123'),
-(3, 'nazmi', 'nazmi@gmail.com', '081987654321', 'amiami'),
-(14, 'lalaaa', 'lala123@gmail.com', '081942916170', '01234'),
-(15, 'shafa', 'shafa.io@gmail.com', '085987654287', 'shafa01'),
-(16, 'fiqa_23', 'afiqah@gmail.com', '087963532977', 'fiqachu'),
-(17, 'juanri', 'juanri@gmail.com', '082837456834', 'juan'),
-(18, 'gita_mlnd', 'gitamailand@gmail.com', '081907977994', '12345');
+(3, 'fairuz', 'fairuzhnf@gmail.com', '081907977994', 'fei12'),
+(5, 'Gilang', 'gilang@gmail.com', '081937111222', 'gilang123');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `review`
+--
+
+CREATE TABLE `review` (
+  `kd_review` int(11) NOT NULL,
+  `user_name` mediumtext NOT NULL,
+  `user_rating` int(11) NOT NULL,
+  `user_review` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `review`
+--
+
+INSERT INTO `review` (`kd_review`, `user_name`, `user_rating`, `user_review`) VALUES
+(3, 'fairuz', 5, 'bintang 5 bangeeet buat studio fotonya, baguuusss dan estetik parah <3'),
+(5, 'Gilang', 5, 'bagus,keren'),
+(6, 'zayyan', 4, 'perlu ditingkatkan lagi'),
+(7, 'Miftah', 5, 'overall smua oke');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `konfirmasi`
+-- Indeks untuk tabel `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id_admin`);
+
+--
+-- Indeks untuk tabel `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
   ADD PRIMARY KEY (`id_confirm`);
 
 --
--- Indexes for table `pelanggan`
+-- Indeks untuk tabel `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id_payment`);
+
+--
+-- Indeks untuk tabel `pelanggan`
 --
 ALTER TABLE `pelanggan`
   ADD PRIMARY KEY (`id_pelanggan`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indeks untuk tabel `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`kd_review`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `konfirmasi`
+-- AUTO_INCREMENT untuk tabel `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_confirm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_confirm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `pelanggan`
+-- AUTO_INCREMENT untuk tabel `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id_payment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `review`
+--
+ALTER TABLE `review`
+  MODIFY `kd_review` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
